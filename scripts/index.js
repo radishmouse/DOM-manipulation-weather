@@ -18,6 +18,9 @@ function appendElement(tagname,value){
     // console.log(wSubDiv);
     wDiv.append(wSubDiv);
 }
+
+<iframe src="http://maps.google.com/maps?q=35.856737, 10.606619&z=15&output=embed" width="360" height="270" frameborder="0" style="border:0"></iframe>
+
 //use the weater data to create html elements
 appendElement('City Name',getLocationName(atlWeather));
 appendElement('Current Temperature',getTemperature(atlWeather));
