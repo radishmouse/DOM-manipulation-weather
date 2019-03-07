@@ -1,0 +1,16 @@
+.weatherDiv {
+}
+
+.wDiv {
+    display:flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    flex-direction: row;
+
+
+}
+
+.wDiv div{
+    width: 150px;
+    border: 2px solid blue;
+}
