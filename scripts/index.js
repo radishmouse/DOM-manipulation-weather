@@ -1,11 +1,11 @@
 
 //create an element that will be inserted into HTML
 const wDiv = document.createElement('div');
-//create an element to hold icon elements
-const iconDiv = document.createElement('div');
-
 // wDiv.textContent = "Weather Data";
 wDiv.className = "wDiv";
+
+//create an element to hold icon elements
+const iconDiv = document.createElement('div');
 
 //get a pointer for my existing DIVs on the page where this will be inserted
 currentWeatherDiv = document.querySelector('[data-weather]');
@@ -13,7 +13,25 @@ currentIcons = document.querySelector('[data-icon]');
 currentMap = document.querySelector('[data-map]');
 currentSun = document.querySelector('[data-sun]');
 
-//create individual elements to hold the data:
+//use the weater data to create html elements
+appendElement('City Name',getLocationName(atlWeather));
+appendElement('Current Temperature',getTemperature(atlWeather));
+appendElement('Wind Speed',getWindSpeed(atlWeather));
+
+//Then append that conglomerate div element to the existing page
+currentWeatherDiv.appendChild(wDiv);
+
+const iconArray = getIconArray(atlWeather);   
+appendIconElement(iconArray);
+
+//get latt, long, and add to page
+addMap(atlWeather);
+
+//get sunrise, sunset and add to page
+getSunTimes(atlWeather);
+
+
+//create individual elements to hold the inital weater data:
 function appendElement(tagname,value){
     const wSubDiv = document.createElement('div');
     wSubDiv.textContent =  tagname + ":" + value;
@@ -34,14 +52,12 @@ function getSunTimes(data){
     riseP.textContent = "Sunrise is at: " + (sunrise.getHours()) + ":" + sunrise.getMinutes() + "AM";
     setP.textContent = "Sunset is at: " + (sunset.getHours() - 12) + ":" + sunset.getMinutes() + "PM";
     
-
     sunDiv.append(riseP);
     sunDiv.append(setP);
 
     currentSun.append(sunDiv);
 
 }
-getSunTimes(atlWeather);
 
 //function to grab the google map for a particular latitude,logitude location and append
 //that to the currentMap div on my page.
@@ -59,21 +75,6 @@ function addMap(data){
 
     
 };
-
-//use the weater data to create html elements
-appendElement('City Name',getLocationName(atlWeather));
-appendElement('Current Temperature',getTemperature(atlWeather));
-appendElement('Wind Speed',getWindSpeed(atlWeather));
-
-//Then append that conglomerate div element to the existing page
-currentWeatherDiv.appendChild(wDiv);
-
-const iconArray = getIconArray(atlWeather);   
-appendIconElement(iconArray);
-
-addMap(atlWeather);
-
-
 
 //function to get the array of icons urls and append them to x elements in the iconDiv holder
 function appendIconElement(iconsURLs){
