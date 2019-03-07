@@ -20,12 +20,18 @@ function appendElement(tagname,value){
     wDiv.append(wSubDiv);
 }
 
+const sunriseTime = new Date(1551787231*1000); //convert seconds to milliseconds
+console.log(sunriseTime.getFullYear())
+
+//function to grab the google map for a particular latitude,logitude location and append
+//that to the currentMap div on my page.
+
 function addMap(data){
     const locationMap = document.createElement('iframe');
     // const mapurl = "http://maps.google.com/maps?q=" + 35.856737 + ", " + 10.606619 + "&z=15&output=embed" ;
     const mapurl = "http://maps.google.com/maps?q=" + getLocationLatitude(data) + ", " + getLocationLongitude(data) + "&z=15&output=embed" ;
-    locationMap.setAttribute('width',"360");
-    locationMap.setAttribute('height',"270");
+    locationMap.setAttribute('width',"500");
+    locationMap.setAttribute('height',"400");
     locationMap.setAttribute('frameborder',"0");
     locationMap.setAttribute('style',"border:0");
     locationMap.setAttribute('src',mapurl);
@@ -46,6 +52,8 @@ const iconArray = getIconArray(atlWeather);
 appendIconElement(iconArray);
 
 addMap(atlWeather);
+
+
 
 //function to get the array of icons urls and append them to x elements in the iconDiv holder
 function appendIconElement(iconsURLs){
