@@ -11,6 +11,7 @@ wDiv.className = "wDiv";
 currentWeatherDiv = document.querySelector('[data-weather]');
 currentIcons = document.querySelector('[data-icon]');
 currentMap = document.querySelector('[data-map]');
+currentSun = document.querySelector('[data-sun]');
 
 //create individual elements to hold the data:
 function appendElement(tagname,value){
@@ -20,8 +21,27 @@ function appendElement(tagname,value){
     wDiv.append(wSubDiv);
 }
 
-const sunriseTime = new Date(1551787231*1000); //convert seconds to milliseconds
-console.log(sunriseTime.getFullYear())
+// const sunriseTime = new Date(1551787231*1000); //convert seconds to milliseconds
+// console.log(sunriseTime.getFullYear())
+function getSunTimes(data){
+    const sunDiv = document.createElement('div');
+    const riseP = document.createElement('p');
+    const setP = document.createElement('p');
+
+    const sunrise = new Date(getSunrise(data)  * 1000);
+    const sunset = new Date(getSunset(data) * 1000);
+    console.log (sunset.getHours() - 12);
+    riseP.textContent = "Sunrise is at: " + (sunrise.getHours()) + ":" + sunrise.getMinutes() + "AM";
+    setP.textContent = "Sunset is at: " + (sunset.getHours() - 12) + ":" + sunset.getMinutes() + "PM";
+    
+
+    sunDiv.append(riseP);
+    sunDiv.append(setP);
+
+    currentSun.append(sunDiv);
+
+}
+getSunTimes(atlWeather);
 
 //function to grab the google map for a particular latitude,logitude location and append
 //that to the currentMap div on my page.
@@ -105,6 +125,9 @@ function getIconArray(data){
 
 function getWindSpeed(data) {
     return data.wind.speed;
+}
+function getSunset(data){
+    return data.sys.sunset;
 }
 function getSunrise(data) {
     return data.sys.sunrise;
