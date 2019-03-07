@@ -10,6 +10,7 @@ wDiv.className = "wDiv";
 //get a pointer for my existing DIVs on the page where this will be inserted
 currentWeatherDiv = document.querySelector('[data-weather]');
 currentIcons = document.querySelector('[data-icon]');
+currentMap = document.querySelector('[data-map]');
 
 //create individual elements to hold the data:
 function appendElement(tagname,value){
@@ -19,7 +20,19 @@ function appendElement(tagname,value){
     wDiv.append(wSubDiv);
 }
 
-<iframe src="http://maps.google.com/maps?q=35.856737, 10.606619&z=15&output=embed" width="360" height="270" frameborder="0" style="border:0"></iframe>
+function addMap(data){
+    const locationMap = document.createElement('iframe');
+    // const mapurl = "http://maps.google.com/maps?q=" + 35.856737 + ", " + 10.606619 + "&z=15&output=embed" ;
+    const mapurl = "http://maps.google.com/maps?q=" + getLocationLatitude(data) + ", " + getLocationLongitude(data) + "&z=15&output=embed" ;
+    locationMap.setAttribute('width',"360");
+    locationMap.setAttribute('height',"270");
+    locationMap.setAttribute('frameborder',"0");
+    locationMap.setAttribute('style',"border:0");
+    locationMap.setAttribute('src',mapurl);
+    currentMap.append(locationMap);
+
+    
+};
 
 //use the weater data to create html elements
 appendElement('City Name',getLocationName(atlWeather));
@@ -32,6 +45,7 @@ currentWeatherDiv.appendChild(wDiv);
 const iconArray = getIconArray(atlWeather);   
 appendIconElement(iconArray);
 
+addMap(atlWeather);
 
 //function to get the array of icons urls and append them to x elements in the iconDiv holder
 function appendIconElement(iconsURLs){
