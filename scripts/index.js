@@ -7,8 +7,9 @@ const iconDiv = document.createElement('div');
 // wDiv.textContent = "Weather Data";
 wDiv.className = "wDiv";
 
-//get a pointer for my existing DIV on the page where this will be inserted
+//get a pointer for my existing DIVs on the page where this will be inserted
 currentWeatherDiv = document.querySelector('[data-weather]');
+currentIcons = document.querySelector('[data-icon]');
 
 //create individual elements to hold the data:
 function appendElement(tagname,value){
@@ -26,14 +27,19 @@ appendElement('Wind Speed',getWindSpeed(atlWeather));
 currentWeatherDiv.appendChild(wDiv);
 
 const iconArray = getIconArray(atlWeather);   
+appendIconElement(iconArray);
 
+
+//function to get the array of icons urls and append them to x elements in the iconDiv holder
 function appendIconElement(iconsURLs){
-    icons.forEach(function(url) {
-        const iconEl = document.createElement('i');
-        iconEl.setAttribute('href',url);
+    iconsURLs.forEach(function(url) {
+        const iconEl = document.createElement('img');
+        iconEl.setAttribute('src',url);
         iconDiv.append(iconEl);
+    });
+    //appends this to the page
+    currentIcons.append(iconDiv);
 
-    })
 };
 
 
@@ -60,6 +66,9 @@ function getDescription(data) {
     //this is an array.  i only pulled one.
     return data.weather[0].description;
 }
+
+//gets all possible weather icons - there can be more than one.
+//returns an array of the icon converted to its matching png file
 function getIconArray(data){
     const iconAr = data.weather.map(function(w) {
         return "http://openweathermap.org/img/w/"+w.icon +".png";
