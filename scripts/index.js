@@ -2,11 +2,15 @@
 //create an element that will be inserted into HTML
 const wDiv = document.createElement('div');
 // wDiv.textContent = "Weather Data";
+
+// This is good, but `wDiv.classList.add('wDiv');` might be a better choice.
 wDiv.className = "wDiv";
 
 //create an element to hold icon elements
 const iconDiv = document.createElement('div');
 
+// Even though all of these elements exist in the DOM, do make sure
+// to use `let` or `const` to declare them!
 //get a pointer for my existing DIVs on the page where this will be inserted
 currentWeatherDiv = document.querySelector('[data-weather]');
 currentIcons = document.querySelector('[data-icon]');
@@ -31,6 +35,7 @@ addMap(atlWeather);
 getSunTimes(atlWeather);
 
 
+// I'm loving that you made this a function!
 //create individual elements to hold the inital weater data:
 function appendElement(tagname,value){
     const wSubDiv = document.createElement('div');
@@ -42,6 +47,7 @@ function appendElement(tagname,value){
 // const sunriseTime = new Date(1551787231*1000); //convert seconds to milliseconds
 // console.log(sunriseTime.getFullYear())
 function getSunTimes(data){
+  // Excellent!
     const sunDiv = document.createElement('div');
     const riseP = document.createElement('p');
     const setP = document.createElement('p');
@@ -63,6 +69,7 @@ function getSunTimes(data){
 //that to the currentMap div on my page.
 
 function addMap(data){
+  // So good!
     const locationMap = document.createElement('iframe');
     // const mapurl = "http://maps.google.com/maps?q=" + 35.856737 + ", " + 10.606619 + "&z=15&output=embed" ;
     const mapurl = "http://maps.google.com/maps?q=" + getLocationLatitude(data) + ", " + getLocationLongitude(data) + "&z=15&output=embed" ;
@@ -78,6 +85,7 @@ function addMap(data){
 
 //function to get the array of icons urls and append them to x elements in the iconDiv holder
 function appendIconElement(iconsURLs){
+  // Very nice.
     iconsURLs.forEach(function(url) {
         const iconEl = document.createElement('img');
         iconEl.setAttribute('src',url);
@@ -95,6 +103,7 @@ function getLocationName(data) {
     return data.name;
 }
 function getTemperature(data) {
+  // Nice.
     //and convert from Kelvin
     return parseInt(((data.main.temp -273) * 9 / 5) + 32);
 }
@@ -116,10 +125,11 @@ function getDescription(data) {
 //gets all possible weather icons - there can be more than one.
 //returns an array of the icon converted to its matching png file
 function getIconArray(data){
+  // Excellent!
     const iconAr = data.weather.map(function(w) {
         return "http://openweathermap.org/img/w/"+w.icon +".png";
         // return w.icon;
-    })
+    });
     console.log(iconAr);
     return iconAr;
 }
